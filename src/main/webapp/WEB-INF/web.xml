@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+	version="2.4">
+	
+	<context-param>
+		<param-name>sdc-configLocation</param-name>
+		<param-value>classpath:config/sdc-config.xml</param-value>
+	</context-param>
+	<listener>
+		<listener-class>com.toft.core3.web.context.RequestContextListener</listener-class>
+	</listener>
+	
+	<!-- 核心的mvc接收器，其中mvc适用于filter而不是servlet -->
+	<filter>
+		<description>
+		</description>
+		<display-name>CharacterEncodingFilter</display-name>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<filter-class>com.toft.mvc.CharacterEncodingFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<filter>
+		<filter-name>skipFilter</filter-name>
+		<filter-class>com.athena.authority.SkipFilter</filter-class>
+	</filter>
+	<filter>
+		<filter-name>toft</filter-name>
+		<filter-class>com.toft.mvc.ToftFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>toft</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>toft</filter-name>
+		<url-pattern>*.ajax</url-pattern>
+	</filter-mapping>
+	<servlet>
+		<servlet-name>CXFServlet</servlet-name>
+		<servlet-class>com.athena.archive.ws.CXFServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>CXFServlet</servlet-name>
+		<url-pattern>/services/*</url-pattern>
+	</servlet-mapping>
+		<!-- filter-->
+	<!-- 核心的mvc接收器，其中mvc适用于filter而不是servlet -->
+	
+	
+	
+	<servlet>
+		<servlet-name>ArchiveServlet</servlet-name>
+		<servlet-class>com.athena.archive.ws.ArchiveServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ArchiveServlet</servlet-name>
+		<url-pattern>/archive</url-pattern>
+	</servlet-mapping>
+</web-app>
