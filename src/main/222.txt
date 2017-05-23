@@ -1,0 +1,2 @@
+hello word
+I want to compare with 111.txt
