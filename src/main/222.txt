@@ -1,2 +1,3 @@
 hello word
 I want to compare with 111.txt
+today is wednesday,i try git
